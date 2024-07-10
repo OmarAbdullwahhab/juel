@@ -23,9 +23,9 @@ import java.lang.reflect.Constructor;
 import java.util.EnumSet;
 import java.util.Properties;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ExpressionFactory;
 
 import de.odysseus.el.misc.TypeConverter;
 import de.odysseus.el.tree.TreeBuilder;
@@ -37,49 +37,63 @@ import de.odysseus.el.tree.impl.Builder.Feature;
 /**
  * Expression factory implementation.
  * 
- * This class is also used as an EL "service provider". The <em>juel-spi</em> jar file specifies this
+ * This class is also used as an EL "service provider". The <em>juel-spi</em>
+ * jar file specifies this
  * class as el expression factory implementation in
- * <code>META-INF/services/javax.el.ExpressionFactory</code>. Calling
- * {@link ExpressionFactory#newInstance()} will then return an instance of this class, configured as
+ * <code>META-INF/services/jakarta.el.ExpressionFactory</code>. Calling
+ * {@link ExpressionFactory#newInstance()} will then return an instance of this
+ * class, configured as
  * described below.
  * 
  * If no properties are specified at construction time, properties are read from
  * <ol>
  * <li>
- * If the file <code>JAVA_HOME/lib/el.properties</code> exists and if it contains property
- * <code>javax.el.ExpressionFactory</code> whose value is the name of this class, these properties
+ * If the file <code>JAVA_HOME/lib/el.properties</code> exists and if it
+ * contains property
+ * <code>jakarta.el.ExpressionFactory</code> whose value is the name of this
+ * class, these properties
  * are taken as default properties.</li>
- * <li>Otherwise, if system property <code>javax.el.ExpressionFactory</code> is set to the name of
- * this class, the system properties {@link System#getProperties()} are taken as default properties.
+ * <li>Otherwise, if system property <code>jakarta.el.ExpressionFactory</code>
+ * is set to the name of
+ * this class, the system properties {@link System#getProperties()} are taken as
+ * default properties.
  * </li>
  * <li>
- * <code>el.properties</code> on your classpath. These properties override the properties from
- * <code>JAVA_HOME/lib/el.properties</code> or {@link System#getProperties()}.</li>
+ * <code>el.properties</code> on your classpath. These properties override the
+ * properties from
+ * <code>JAVA_HOME/lib/el.properties</code> or
+ * {@link System#getProperties()}.</li>
  * </ol>
- * There are also constructors to explicitly pass in an instance of {@link Properties}.
+ * There are also constructors to explicitly pass in an instance of
+ * {@link Properties}.
  * 
  * Having this, the following properties are read:
  * <ul>
  * <li>
- * <code>javax.el.cacheSize</code> - cache size (int, default is 1000)</li>
+ * <code>jakarta.el.cacheSize</code> - cache size (int, default is 1000)</li>
  * <li>
- * <code>javax.el.methodInvocations</code> - allow method invocations as in
+ * <code>jakarta.el.methodInvocations</code> - allow method invocations as in
  * <code>${foo.bar(baz)}</code> (boolean, default is <code>false</code>).</li>
  * <li>
- * <code>javax.el.nullProperties</code> - resolve <code>null</code> properties as in
+ * <code>jakarta.el.nullProperties</code> - resolve <code>null</code> properties
+ * as in
  * <code>${foo[null]}</code> (boolean, default is <code>false</code>).</li>
  * <li>
- * <code>javax.el.varArgs</code> - support function/method calls using varargs (boolean, default is
+ * <code>jakarta.el.varArgs</code> - support function/method calls using varargs
+ * (boolean, default is
  * <code>false</code>).</li>
  * </ul>
  * 
  * @author Christoph Beck
  */
-public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
+public class ExpressionFactoryImpl extends jakarta.el.ExpressionFactory {
 	/**
-	 * A profile provides a default set of language features that will define the builder's
-	 * behavior. A profile can be adjusted using the <code>javax.el.methodInvocations</code>,
-	 * <code>javax.el.varArgs</code> and <code>javax.el.nullProperties</code> properties.
+	 * A profile provides a default set of language features that will define the
+	 * builder's
+	 * behavior. A profile can be adjusted using the
+	 * <code>jakarta.el.methodInvocations</code>,
+	 * <code>jakarta.el.varArgs</code> and <code>jakarta.el.nullProperties</code>
+	 * properties.
 	 * 
 	 * @since 2.2
 	 */
@@ -89,7 +103,8 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		 */
 		JEE5(EnumSet.noneOf(Feature.class)),
 		/**
-		 * JEE6: <code>javax.el.methodInvocations</code>, <code>javax.el.varArgs</code>. This is the
+		 * JEE6: <code>jakarta.el.methodInvocations</code>,
+		 * <code>jakarta.el.varArgs</code>. This is the
 		 * default profile.
 		 */
 		JEE6(EnumSet.of(Feature.METHOD_INVOCATIONS, Feature.VARARGS));
@@ -110,29 +125,29 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	}
 
 	/**
-	 * <code>javax.el.methodInvocations</code>
+	 * <code>jakarta.el.methodInvocations</code>
 	 */
-	public static final String PROP_METHOD_INVOCATIONS = "javax.el.methodInvocations";
+	public static final String PROP_METHOD_INVOCATIONS = "jakarta.el.methodInvocations";
 
 	/**
-	 * <code>javax.el.varArgs</code>
+	 * <code>jakarta.el.varArgs</code>
 	 */
-	public static final String PROP_VAR_ARGS = "javax.el.varArgs";
+	public static final String PROP_VAR_ARGS = "jakarta.el.varArgs";
 
 	/**
-	 * <code>javax.el.nullProperties</code>
+	 * <code>jakarta.el.nullProperties</code>
 	 */
-	public static final String PROP_NULL_PROPERTIES = "javax.el.nullProperties";
+	public static final String PROP_NULL_PROPERTIES = "jakarta.el.nullProperties";
 
 	/**
-	 * <code>javax.el.ignoreReturnType</code>
+	 * <code>jakarta.el.ignoreReturnType</code>
 	 */
-	public static final String PROP_IGNORE_RETURN_TYPE = "javax.el.ignoreReturnType";	
+	public static final String PROP_IGNORE_RETURN_TYPE = "jakarta.el.ignoreReturnType";
 	
 	/**
-	 * <code>javax.el.cacheSize</code>
+	 * <code>jakarta.el.cacheSize</code>
 	 */
-	public static final String PROP_CACHE_SIZE = "javax.el.cacheSize";
+	public static final String PROP_CACHE_SIZE = "jakarta.el.cacheSize";
 
 	private final TreeStore store;
 	private final TypeConverter converter;
@@ -165,27 +180,34 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	}
 
 	/**
-	 * Create a new expression factory using the default builder and cache implementations. The
-	 * builder and cache are configured using the specified properties. The maximum cache size will
-	 * be 1000 unless overridden by property <code>javax.el.cacheSize</code>. The builder profile is
+	 * Create a new expression factory using the default builder and cache
+	 * implementations. The
+	 * builder and cache are configured using the specified properties. The maximum
+	 * cache size will
+	 * be 1000 unless overridden by property <code>jakarta.el.cacheSize</code>. The
+	 * builder profile is
 	 * {@link Profile#JEE6} (features may be overridden in <code>properties</code>).
 	 * 
 	 * @param properties
-	 *            used to initialize this factory (may be <code>null</code>)
+	 *                   used to initialize this factory (may be <code>null</code>)
 	 */
 	public ExpressionFactoryImpl(Properties properties) {
 		this(Profile.JEE6, properties);
 	}
 
 	/**
-	 * Create a new expression factory using the default builder and cache implementations. The
-	 * builder and cache are configured using the specified profile and properties. The maximum
-	 * cache size will be 1000 unless overridden by property <code>javax.el.cacheSize</code>.
+	 * Create a new expression factory using the default builder and cache
+	 * implementations. The
+	 * builder and cache are configured using the specified profile and properties.
+	 * The maximum
+	 * cache size will be 1000 unless overridden by property
+	 * <code>jakarta.el.cacheSize</code>.
 	 * 
 	 * @param profile
-	 *            builder profile (individual features may be overridden in properties)
+	 *                   builder profile (individual features may be overridden in
+	 *                   properties)
 	 * @param properties
-	 *            used to initialize this factory (may be <code>null</code>)
+	 *                   used to initialize this factory (may be <code>null</code>)
 	 * 
 	 * @since 2.2
 	 */
@@ -195,31 +217,39 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	}
 
 	/**
-	 * Create a new expression factory using the default builder and cache implementations. The
-	 * builder and cache are configured using the specified properties. The maximum cache size will
-	 * be 1000 unless overridden by property <code>javax.el.cacheSize</code>. The builder profile is
-	 * {@link Profile#JEE6} (individual features may be overridden in <code>properties</code>).
+	 * Create a new expression factory using the default builder and cache
+	 * implementations. The
+	 * builder and cache are configured using the specified properties. The maximum
+	 * cache size will
+	 * be 1000 unless overridden by property <code>jakarta.el.cacheSize</code>. The
+	 * builder profile is
+	 * {@link Profile#JEE6} (individual features may be overridden in
+	 * <code>properties</code>).
 	 * 
 	 * @param properties
-	 *            used to initialize this factory (may be <code>null</code>)
+	 *                   used to initialize this factory (may be <code>null</code>)
 	 * @param converter
-	 *            custom type converter
+	 *                   custom type converter
 	 */
 	public ExpressionFactoryImpl(Properties properties, TypeConverter converter) {
 		this(Profile.JEE6, properties, converter);
 	}
 
 	/**
-	 * Create a new expression factory using the default builder and cache implementations. The
-	 * builder and cache are configured using the specified profile and properties. The maximum
-	 * cache size will be 1000 unless overridden by property <code>javax.el.cacheSize</code>.
+	 * Create a new expression factory using the default builder and cache
+	 * implementations. The
+	 * builder and cache are configured using the specified profile and properties.
+	 * The maximum
+	 * cache size will be 1000 unless overridden by property
+	 * <code>jakarta.el.cacheSize</code>.
 	 * 
 	 * @param profile
-	 *            builder profile (individual features may be overridden in properties)
+	 *                   builder profile (individual features may be overridden in
+	 *                   properties)
 	 * @param properties
-	 *            used to initialize this factory (may be <code>null</code>)
+	 *                   used to initialize this factory (may be <code>null</code>)
 	 * @param converter
-	 *            custom type converter
+	 *                   custom type converter
 	 * 
 	 * @since 2.2
 	 */
@@ -270,14 +300,14 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 						// ignore...
 					}
 				}
-				if (getClass().getName().equals(properties.getProperty("javax.el.ExpressionFactory"))) {
+				if (getClass().getName().equals(properties.getProperty("jakarta.el.ExpressionFactory"))) {
 					return properties;
 				}
 			}
 		} catch (SecurityException e) {
 			// ignore...
 		}
-		if (getClass().getName().equals(System.getProperty("javax.el.ExpressionFactory"))) {
+		if (getClass().getName().equals(System.getProperty("jakarta.el.ExpressionFactory"))) {
 			return System.getProperties();
 		}
 		return null;
@@ -315,10 +345,13 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 	}
 
 	/**
-	 * Create the factory's tree store. This implementation creates a new tree store using the
-	 * default builder and cache implementations. The builder and cache are configured using the
-	 * specified properties. The maximum cache size will be as specified unless overridden by
-	 * property <code>javax.el.cacheSize</code>.
+	 * Create the factory's tree store. This implementation creates a new tree store
+	 * using the
+	 * default builder and cache implementations. The builder and cache are
+	 * configured using the
+	 * specified properties. The maximum cache size will be as specified unless
+	 * overridden by
+	 * property <code>jakarta.el.cacheSize</code>.
 	 */
 	protected TreeStore createTreeStore(int defaultCacheSize, Profile profile, Properties properties) {
 		// create builder
@@ -430,10 +463,6 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 		return null;
 	}
 
-	@Override
-	public final Object coerceToType(Object obj, Class<?> targetType) {
-		return converter.convert(obj, targetType);
-	}
 
 	@Override
 	public final ObjectValueExpression createValueExpression(Object instance, Class<?> expectedType) {
@@ -451,5 +480,10 @@ public class ExpressionFactoryImpl extends javax.el.ExpressionFactory {
 			Class<?> expectedReturnType, Class<?>[] expectedParamTypes) {
 		return new TreeMethodExpression(store, context.getFunctionMapper(), context.getVariableMapper(), converter,
 				expression, expectedReturnType, expectedParamTypes);
+	}
+
+	@Override
+	public <T> T coerceToType(Object obj, Class<T> targetType) {
+		return converter.convert(obj, targetType);
 	}
 }

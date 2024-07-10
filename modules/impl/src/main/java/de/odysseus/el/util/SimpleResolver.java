@@ -15,17 +15,15 @@
  */
 package de.odysseus.el.util;
 
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
 
-import javax.el.ArrayELResolver;
-import javax.el.BeanELResolver;
-import javax.el.CompositeELResolver;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
-import javax.el.ResourceBundleELResolver;
+import jakarta.el.ArrayELResolver;
+import jakarta.el.BeanELResolver;
+import jakarta.el.CompositeELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.ListELResolver;
+import jakarta.el.MapELResolver;
+import jakarta.el.ResourceBundleELResolver;
 
 /**
  * Simple resolver implementation. This resolver handles root properties (top-level identifiers).
@@ -105,10 +103,15 @@ public class SimpleResolver extends ELResolver {
 		return delegate.getCommonPropertyType(context, base);
 	}
 
-	@Override
-	public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-		return delegate.getFeatureDescriptors(context, base);
-	}
+	/*
+	 * @Override
+	 * public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context,
+	 * Object base) {
+	 * 
+	 * // return delegate.getFeatureDescriptors(context, base);
+	 * return null;
+	 * }
+	 */
 
 	@Override
 	public Class<?> getType(ELContext context, Object base, Object property) {

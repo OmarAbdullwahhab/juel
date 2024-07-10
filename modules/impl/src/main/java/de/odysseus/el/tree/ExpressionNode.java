@@ -15,9 +15,9 @@
  */
 package de.odysseus.el.tree;
 
-import javax.el.ELContext;
-import javax.el.MethodInfo;
-import javax.el.ValueReference;
+import jakarta.el.ELContext;
+import jakarta.el.MethodInfo;
+import jakarta.el.ValueReference;
 
 /**
  * Expression node interface. This interface provides all the methods needed for value expressions
@@ -78,12 +78,12 @@ public interface ExpressionNode extends Node {
 
 	/**
 	 * Determine whether {@link #setValue(Bindings, ELContext, Object)} will throw a
-	 * {@link javax.el.PropertyNotWritableException}.
+	 * {@link jakarta.el.PropertyNotWritableException}.
 	 * 
 	 * @param bindings
-	 *            bindings containing variables and functions
+	 *                 bindings containing variables and functions
 	 * @param context
-	 *            evaluation context
+	 *                 evaluation context
 	 * @return <code>true</code> if this a read-only expression node
 	 */
 	public boolean isReadOnly(Bindings bindings, ELContext context);

@@ -20,11 +20,11 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.FunctionMapper;
-import javax.el.MethodInfo;
-import javax.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.FunctionMapper;
+import jakarta.el.MethodInfo;
+import jakarta.el.VariableMapper;
 
 import de.odysseus.el.misc.LocalMessages;
 import de.odysseus.el.misc.TypeConverter;
@@ -43,7 +43,7 @@ import de.odysseus.el.tree.NodePrinter;
  * 
  * @author Christoph Beck
  */
-public final class TreeMethodExpression extends javax.el.MethodExpression {
+public final class TreeMethodExpression extends jakarta.el.MethodExpression {
 	private static final long serialVersionUID = 1L;
 
 	private final TreeBuilder builder;
@@ -143,10 +143,12 @@ public final class TreeMethodExpression extends javax.el.MethodExpression {
 	/**
 	 * @return <code>true</code> if this is a method invocation expression
 	 */
-	@Override
-	public boolean isParmetersProvided() {
-		return node.isMethodInvocation();
-	}
+	/*
+	 * @Override
+	 * public boolean isParmetersProvided() {
+	 * return node.isMethodInvocation();
+	 * }
+	 */
 	
 	/**
 	 * Answer <code>true</code> if this is a deferred expression (starting with <code>#{</code>)
